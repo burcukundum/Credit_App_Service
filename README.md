@@ -1,22 +1,24 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/t218cK-M)
-# 4.Hafta Ödevi
-- Kullanılan servisleri istediğiniz bir database ile bağlayın. `(30 PUAN)`
 
-- Bir uygulama için service katmanına tüm gerekli senaryolar için unit test yazın. `(20 PUAN)(Daha fazla yapan bonus 10 PUAN)`
+# Kredinbizde Service Application
 
-- Tüm uygulamaları tek bir repo haline getirin.`(5 PUAN)`
+Kredinbizde Service is a web application that allows users to apply for various loan and credit card products from multiple banks.
 
-- Dokümantasyon ekleyin. `(20 PUAN)`
 
-- Best practices, isimlendirme kurallarına uyum. `(10 PUAN)`
+## Application Features
 
-- Uygulamanın doğru çalışması. `(15 PUAN)`
+- Kredinbizde empowers users to apply for a variety of financial products, including consumer loans, vehicle loans, house loans, and credit cards.
 
-## BONUS
-- Uygulamaların dockerize edilmesi ve docker compose dosyası yazılması. `(10 PUAN)`
+- Users can open an account on KredinBizde and apply to any bank they wish. Their application will be evaluated by the bank they apply to and then communicated to the customer. This way, instead of applying to banks individually, customers utilize the KredinBizde application, which acts as an intermediary between banks and customers.
 
-- Design Pattern kullanımı. `(10 PUAN)`
+- Once the user's information is registered, they can apply with the necessary information at any time. This eliminates the need to open an account repeatedly.
 
----
-*Eğitmen - Cem DIRMAN*  
-*Kolay Gelsin*
+- Credit cards can feature multiple campaigns as well. When applying for a credit card, customers can review these campaigns and apply accordingly.
+
+  
+## Feedback
+
+I value your feedback! Feel free to contact me through the following method:
+
+Email: [burcukundum@gmail.com]
+
+  
