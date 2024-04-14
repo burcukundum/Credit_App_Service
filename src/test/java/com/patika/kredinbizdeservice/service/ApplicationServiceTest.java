@@ -95,7 +95,7 @@ class ApplicationServiceTest {
         ApplicationRequest request = new ApplicationRequest();
         request.setEmail(mockUser.getEmail());
 
-        // Set any initial status (doesn't matter for this test)
+
         Application mockApplication = new Application();
         mockApplication.setStatus(ApplicationStatus.INITIAL); // Example
 
@@ -123,7 +123,7 @@ class ApplicationServiceTest {
         ApplicationRequest request = new ApplicationRequest();
         request.setEmail(mockUser.getEmail());
 
-        // Set any initial status (doesn't matter for this test)
+
         Application mockApplication = new Application();
         mockApplication.setStatus(ApplicationStatus.INITIAL);
 

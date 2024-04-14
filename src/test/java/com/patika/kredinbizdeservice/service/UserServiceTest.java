@@ -42,15 +42,13 @@ public class UserServiceTest {
     @Test
     public void should_create_user_successfully() {
 
-        //given
-        //Mockito.when(userRepository.save(praperaUser())).thenReturn(praperaUser()); //neden hata veriyor?
 
-        Mockito.when(userRepository.save(Mockito.any(User.class))).thenReturn(preparaUser()); //neden hata vermiyor
+        Mockito.when(userRepository.save(Mockito.any(User.class))).thenReturn(preparaUser());
         System.out.println(preparaUser().hashCode());
-        //when
+
         User userResponse = userService.save(preparaUser());
 
-        //then --assertion -- doğrulama
+
 
         assertThat(userResponse).isNotNull();
         assertThat(userResponse.getName()).isEqualTo("test name");
@@ -66,13 +64,13 @@ public class UserServiceTest {
     @Test
     public void should_return_user_by_email_successfully() {
 
-        //given
+
         Mockito.when(userRepository.findByEmail(preparaUser().getEmail())).thenReturn(Optional.of(preparaUser()));
 
-        //when
+
         User userResponse = userService.getByEmail("test@gmail.com");
 
-        //then
+
         assertThat(userResponse).isNotNull();
         assertThat(userResponse.getName()).isEqualTo("test name");
         assertThat(userResponse.getSurname()).isEqualTo(preparaUser().getSurname());
@@ -86,21 +84,21 @@ public class UserServiceTest {
 
     @Test
     public void should_throw_kredinbizdeException_whenUserNotFound() {
-        //given
 
-        //when
+
+
         Throwable throwable = catchThrowable(() -> userService.getByEmail("test@gmail.com"));
 
-        //then
+
         assertThat(throwable).isInstanceOf(KredinbizdeException.class);
         assertThat(throwable.getMessage()).isEqualTo("user bulunamadı!");
     }
 
     @Test
     public void should_throw_kredinbizdeException_whenUserNotFound2() {
-        //given
 
-        //when
+
+
         Assertions.assertThrows(KredinbizdeException.class, () -> userService.getByEmail("test"), "user bulunamadı!");
 
     }
@@ -114,10 +112,10 @@ public class UserServiceTest {
         );
         Mockito.when(userRepository.findAll()).thenReturn(mockUsers);
 
-        // when
+
         List<User> retrievedUsers = userService.getAll();
 
-        // then
+
         assertThat(retrievedUsers).isNotNull();
         //assertThat(retrievedUsers).hasSize(2);
         //assertThat(retrievedUsers.get(0).getId()).isEqualTo(1L);
@@ -138,73 +136,71 @@ public class UserServiceTest {
         User updatedUser = new User(email,"Jane", "Smith");
         Mockito.when(userRepository.findByEmail(email)).thenReturn(Optional.of(existingUser));
 
-        // When (call the update method)
+
         User returnedUser = userService.update(email, updatedUser);
 
-        // Then (assertions)
-        // Verify user update
         assertThat(returnedUser).isNotNull();
         assertThat(returnedUser.getEmail()).isEqualTo(email);
         assertThat(returnedUser.getName()).isEqualTo("Jane");
         assertThat(returnedUser.getSurname()).isEqualTo("Smith");
 
-        // Verify cache update
-        // Assuming a cache named "users" and key based on email
+
+
         Cache cache = Mockito.verify(cacheManager, times(1)).getCache("users");
         Mockito.verify(cache, times(1)).put(email, returnedUser);
 
-        // Verify interaction with userRepository
+
         Mockito.verify(userRepository, times(1)).findByEmail(email);
-        Mockito.verify(userRepository, times(1)).save(returnedUser); // Updated user
-        // Note: userRepository.delete(user) is not called because we update the existing object
+        Mockito.verify(userRepository, times(1)).save(returnedUser);
+
         }
     @Test
     public void should_get_user_by_id_successfully() {
-        // Given
+
         Long userId = 1L;
         User expectedUser = new User(userId, "John", "Doe");
         Mockito.when(userRepository.findById(userId)).thenReturn(Optional.of(expectedUser));
 
-        // When
+
         User returnedUser = userService.getById(userId);
 
-        // Then
+
         assertThat(returnedUser).isNotNull();
         assertThat(returnedUser.getId()).isEqualTo(userId);
         assertThat(returnedUser.getName()).isEqualTo("John");
         assertThat(returnedUser.getSurname()).isEqualTo("Doe");
 
-        // Verify interaction with userRepository
+
         Mockito.verify(userRepository, times(1)).findById(userId);
     }
 
     @Test
     public void should_throw_kredinbizdeException_whenUserNotFoundById() {
-        // Given
+
         Long userId = 10L; // An ID for which no user exists
         Mockito.when(userRepository.findById(userId)).thenReturn(Optional.empty());
 
-        // When and Then
+
         Assertions.assertThrows(KredinbizdeException.class, () -> userService.getById(userId), "User bulunamadı!");
 
-        // Verify interaction with userRepository
+
         Mockito.verify(userRepository, times(1)).findById(userId);
     }
 
     @Test
     public void should_throw_kredinbizdeException_whenUserNotFoundById2() {
-        // Given
+
         Long userId = 20L; // Another ID for which no user exists
         Mockito.when(userRepository.findById(userId)).thenReturn(Optional.empty());
 
-        // When
+
         Throwable throwable = catchThrowable(() -> userService.getById(userId));
 
-        // Then
+
         assertThat(throwable).isInstanceOf(KredinbizdeException.class);
         assertThat(throwable.getMessage()).isEqualTo("User bulunamadı!");
 
-        // Verify interaction with userRepository
+
         Mockito.verify(userRepository, times(1)).findById(userId);
     }
 
